@@ -8,11 +8,16 @@ public class SpawnEnemies : MonoBehaviour {
 	public float minSpawnDist = 35.0f;
 	public float maxSpawnDist = 45.0f;
 	float minHeight = 20.0f;
+	public bool spawnEyeLevelOnly = false;
 
 	void SpawnEnemy() {
 		Vector3 spawnVect = Random.onUnitSphere * Random.Range(minSpawnDist,maxSpawnDist);
 		if(spawnVect.y < 0.0f) {
 			spawnVect.y = -spawnVect.y;
+		}
+		if(spawnEyeLevelOnly) {
+			spawnVect.y = transform.position.y;
+			minHeight = 1.0f;
 		}
 		spawnedEnemies.Add( (GameObject) GameObject.Instantiate(enemyToSpawn, transform.position + spawnVect + Vector3.up * minHeight, Quaternion.identity) );
 	}
