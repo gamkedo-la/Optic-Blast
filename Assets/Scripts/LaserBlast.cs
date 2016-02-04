@@ -7,7 +7,7 @@ public class LaserBlast : MonoBehaviour {
 	AudioSource beamSound;
 
 	void OnTriggerStay (Collider other) {
-		if(Input.GetButton("Fire1")) {
+		if(Input.GetButton("Fire1") && TapToTeleport.jumpProcess == 0.0f) {
 			Destroyable destScript = other.GetComponent<Destroyable>();
 			if(destScript) {
 				destScript.Damage();
@@ -29,10 +29,10 @@ public class LaserBlast : MonoBehaviour {
 	}
 
 	void Update() {
-		if(Input.GetButtonDown("Fire1")) {
+		if(Input.GetButtonDown("Fire1") && TapToTeleport.jumpProcess == 0.0f) {
 			ToggleLights(true);
 		}
-		if(Input.GetButtonUp("Fire1")) {
+		if(Input.GetButtonUp("Fire1") || (TapToTeleport.jumpProcess != 0.0f && beamSound.enabled)) {
 			ToggleLights(false);
 		}
 	}

@@ -15,9 +15,18 @@ public class MoveAtPlayer : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		Vector3 vectDiff = playerRef.position - transform.position;
-		if(vectDiff.magnitude < 0.0f) {
-			//Application.LoadLevel(Application.loadedLevel
-			Debug.Log("Player died");
+		float distTo = vectDiff.magnitude;
+
+		if(distTo < TapToTeleport.nearestDist) {
+			TapToTeleport.nearestDist = distTo;
+		}
+
+		if(distTo < 0.5f) {
+			TapToTeleport.playerHarm++;
+			Destroyable destScript = GetComponent<Destroyable>();
+			if(destScript) {
+				destScript.Explode(false);
+			}
 		}
 		Vector3 vectorDir = vectDiff.normalized;
 		transform.position += vectorDir * moveSpeed * Time.deltaTime;

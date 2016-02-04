@@ -4,6 +4,9 @@ using System.Collections;
 public class Destroyable : MonoBehaviour {
 	public float hp = 0.3f;
 	public GameObject explosionEffectPrefab;
+
+	public bool shouldDestroy = false;
+
 	public void Damage () {
 		if(Random.Range(0, 100) < 17 && hp < 0.5f) {
 			transform.Rotate(200.0f * Time.deltaTime, 250.0f * Time.deltaTime, 100.0f * Time.deltaTime);
@@ -13,7 +16,14 @@ public class Destroyable : MonoBehaviour {
 			Explode();
 		}
 	}
-	void Explode() {
+	public void Explode(bool killCounts = true) {
+		if(killCounts) { // false for self destruct attack
+			if(shouldDestroy) {
+				TapToTeleport.enemiesDefeated++;
+			} else {
+				TapToTeleport.suppliesLost++;
+			}
+		}
 		GameObject.Instantiate(explosionEffectPrefab, transform.position, Quaternion.identity);
 		Destroy(gameObject);
 	}
