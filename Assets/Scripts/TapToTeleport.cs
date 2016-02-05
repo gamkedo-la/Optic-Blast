@@ -71,7 +71,9 @@ public class TapToTeleport : MonoBehaviour {
 			viewBlocker.color = fadeBlocker;
 			if(jumpProcess > 1.0f) {
 				transform.position = gotoPos;
-				transform.rotation = Quaternion.identity;
+				if(Application.isEditor == false) {
+					transform.rotation = Quaternion.identity;
+				}
 				jumpProcess = -0.99f;
 			}
 		}
