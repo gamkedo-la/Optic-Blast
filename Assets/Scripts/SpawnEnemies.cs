@@ -5,6 +5,8 @@ using System.Collections.Generic;
 public class SpawnEnemies : MonoBehaviour {
 	public List<GameObject> spawnedEnemies = new List<GameObject>();
 	public GameObject enemyToSpawn;
+    public float spawnFrequency = 3.0f;
+    public int spawnCap = 3;
 	public float minSpawnDist = 35.0f;
 	public float maxSpawnDist = 45.0f;
 	float minHeight = 20.0f;
@@ -28,9 +30,9 @@ public class SpawnEnemies : MonoBehaviour {
 
 	IEnumerator RespawnEnemies() {
 		while(true) {
-			yield return new WaitForSeconds(3.0f);
+			yield return new WaitForSeconds(spawnFrequency);
 			ReapDead();
-			if(spawnedEnemies.Count < 3) {
+			if(spawnedEnemies.Count < spawnCap) {
 				SpawnEnemy();
 			}
 		}

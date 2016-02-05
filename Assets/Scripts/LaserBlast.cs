@@ -3,7 +3,7 @@ using System.Collections;
 
 public class LaserBlast : MonoBehaviour {
 	public Light[] attackToggleLights;
-	public ParticleSystem laserEffect;
+	public ParticleSystem[] laserEffect;
 	AudioSource beamSound;
 
 	void OnTriggerStay (Collider other) {
@@ -18,9 +18,10 @@ public class LaserBlast : MonoBehaviour {
 	void ToggleLights(bool setTo) {
 		for(int i = 0; i < attackToggleLights.Length; i++) {
 			attackToggleLights[i].enabled = setTo;
-		}
+            laserEffect[i].enableEmission = setTo;
+        }
 		beamSound.enabled = setTo;
-		laserEffect.enableEmission = setTo;
+		
 	}
 
 	void Start() {
