@@ -15,7 +15,7 @@ public class HopperBehavior : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        if (player== null)
+        if (player == null)
         {
             player = GameObject.FindWithTag("Player");
         }
