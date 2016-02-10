@@ -4,6 +4,10 @@ using System.Collections;
 public class LaserBlast : MonoBehaviour {
 	public Light[] attackToggleLights;
 	public ParticleSystem[] laserEffect;
+    public GameObject laserBeam;
+    public float scrollSpeed;
+
+    Renderer laserRender;
 	AudioSource beamSound;
 
 	void OnTriggerStay (Collider other) {
@@ -21,11 +25,12 @@ public class LaserBlast : MonoBehaviour {
             laserEffect[i].enableEmission = setTo;
         }
 		beamSound.enabled = setTo;
-		
+        laserRender.enabled = setTo;
 	}
 
 	void Start() {
 		beamSound = GetComponent<AudioSource>(); // (on/from self)
+        laserRender = laserBeam.GetComponent<Renderer>();
 		ToggleLights(false);
 	}
 
@@ -36,5 +41,7 @@ public class LaserBlast : MonoBehaviour {
 		if(Input.GetButtonUp("Fire1") || (TapToTeleport.jumpProcess != 0.0f && beamSound.enabled)) {
 			ToggleLights(false);
 		}
+        float offset = Time.time * scrollSpeed;
+        laserRender.material.SetTextureOffset("_MainTex", new Vector2(offset, 0));
 	}
 }
