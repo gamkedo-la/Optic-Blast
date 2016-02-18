@@ -11,7 +11,9 @@ public class TapToTeleport : MonoBehaviour {
 	// suuupppeeeerrrr lazy hack, these don't even belong in this class, let along as static values
 	public static int enemiesDefeated = 0; 
 	public static int suppliesLost = 0;
-	public static int playerHarm = 0;
+	public static int diedLastRound = -1;
+
+	int spawnersToKillMax = 0;
 
 	public static float nearestDist = 12.0f;
 
@@ -39,6 +41,8 @@ public class TapToTeleport : MonoBehaviour {
 
 		OVRTouchpad.Create ();
 		OVRTouchpad.TouchHandler += HandleTouchHandler;
+
+		diedLastRound = 0;
 	}
 
 	void HandleTouchHandler (object sender, System.EventArgs e)
@@ -61,6 +65,10 @@ public class TapToTeleport : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+
+		if(Destroyable.mustDestroyCount > spawnersToKillMax) {
+			spawnersToKillMax = Destroyable.mustDestroyCount;
+		}
 
 		if( Input.GetButtonDown("Fire2") ) {
 			teleportStart();
@@ -90,7 +98,8 @@ public class TapToTeleport : MonoBehaviour {
 		if(printDebug) {
 			printDebug.text = "Enemies defeated: " + enemiesDefeated + "\n" +
 				"Supplies lost: " + suppliesLost + "\n" +
-				"You died: " + playerHarm + " times\n" +
+				// "You died: " + playerHarm + " times\n" +
+				"Virus Spawners Left: "+ Destroyable.mustDestroyCount +"/"+ spawnersToKillMax +"\n" +
 				"Hold: fire - Swipe forward: teleport";
 		}
 	}

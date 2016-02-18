@@ -10,7 +10,7 @@ public class Destroyable : MonoBehaviour {
 	public bool mustDestroy = false;
 	public bool shouldDestroy = false;
 
-	static int mustDestroyCount = 0;
+	public static int mustDestroyCount = 0;
 
 	public void Start() {
 		if(mustDestroy) {

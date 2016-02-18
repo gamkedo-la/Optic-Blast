@@ -22,11 +22,13 @@ public class MoveAtPlayer : MonoBehaviour {
 		}
 
 		if(distTo < 0.5f) {
-			TapToTeleport.playerHarm++;
-			Destroyable destScript = GetComponent<Destroyable>();
+			// TapToTeleport.playerHarm++;
+			TapToTeleport.diedLastRound = 1;
+			Application.LoadLevel("MenuScene");
+			/*Destroyable destScript = GetComponent<Destroyable>();
 			if(destScript) {
 				destScript.Explode(false);
-			}
+			}*/
 		}
 		Vector3 vectorDir = vectDiff.normalized;
 		transform.position += vectorDir * moveSpeed * Time.deltaTime;
