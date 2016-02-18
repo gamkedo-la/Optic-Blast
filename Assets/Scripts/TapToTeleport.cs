@@ -43,6 +43,7 @@ public class TapToTeleport : MonoBehaviour {
 		OVRTouchpad.TouchHandler += HandleTouchHandler;
 
 		diedLastRound = 0;
+		spawnersToKillMax = 0;
 	}
 
 	void HandleTouchHandler (object sender, System.EventArgs e)
@@ -70,7 +71,7 @@ public class TapToTeleport : MonoBehaviour {
 			spawnersToKillMax = Destroyable.mustDestroyCount;
 		}
 
-		if( Input.GetButtonDown("Fire2") ) {
+		if( Application.isEditor && Input.GetButtonDown("Fire2") ) {
 			teleportStart();
 		}
 		if(jumpProcess > 0.0f) {
@@ -97,7 +98,7 @@ public class TapToTeleport : MonoBehaviour {
 
 		if(printDebug) {
 			printDebug.text = "Enemies defeated: " + enemiesDefeated + "\n" +
-				"Supplies lost: " + suppliesLost + "\n" +
+				"Collateral Losses: " + suppliesLost + "\n" +
 				// "You died: " + playerHarm + " times\n" +
 				"Virus Spawners Left: "+ Destroyable.mustDestroyCount +"/"+ spawnersToKillMax +"\n" +
 				"Hold: fire - Swipe forward: teleport";

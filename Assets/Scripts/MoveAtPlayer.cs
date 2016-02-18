@@ -32,5 +32,6 @@ public class MoveAtPlayer : MonoBehaviour {
 		}
 		Vector3 vectorDir = vectDiff.normalized;
 		transform.position += vectorDir * moveSpeed * Time.deltaTime;
+		transform.LookAt(playerRef.position);
 	}
 }

@@ -18,7 +18,7 @@ public class WanderAI : MonoBehaviour {
 			yield return new WaitForSeconds(0.5f);
 			if(maxDistFrom < 0.0f) {
 				if(MoveAtPlayer.playerRef == null) {
-					continue;
+					MoveAtPlayer.playerRef = GameObject.FindWithTag("Player").transform;
 				}
 				maxDistFrom = Vector3.Distance( MoveAtPlayer.playerRef.transform.position, transform.position );
 			}

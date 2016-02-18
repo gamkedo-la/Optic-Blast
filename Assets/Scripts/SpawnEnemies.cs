@@ -39,7 +39,7 @@ public class SpawnEnemies : MonoBehaviour {
 	}
 
 	// Use this for initialization
-	void Start () {
+	void OnEnable () {
 		StartCoroutine(RespawnEnemies());
 	}
 	
