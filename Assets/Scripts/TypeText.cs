@@ -6,17 +6,23 @@ public class TypeText : MonoBehaviour {
 	public GameObject[] AwakeWhenDone;
 	Text myText;
 	string fullText;
+	public static bool doneAlready = false;
 
 	// Use this for initialization
 	void Start () {
-		for(int i = 0; i < AwakeWhenDone.Length; i++) {
-			AwakeWhenDone[i].SetActive(false);
-		}
+		if(doneAlready == false) {
+			for(int i = 0; i < AwakeWhenDone.Length; i++) {
+				AwakeWhenDone[i].SetActive(false);
+			}
 
-		myText = GetComponent<Text>();
-		fullText = myText.text;
-		myText.text = " ■";
-		StartCoroutine( TypeOutText() );
+			myText = GetComponent<Text>();
+			fullText = myText.text;
+			myText.text = " ■";
+			StartCoroutine(TypeOutText());
+			doneAlready = true;
+		} else {
+			WhenDone();
+		}
 	}
 	
 	IEnumerator TypeOutText() {
@@ -35,6 +41,10 @@ public class TypeText : MonoBehaviour {
 			parentCanv.enabled = (parentCanv.enabled == false );
 			yield return new WaitForSeconds(0.7f * Random.Range(0.01f,0.03f) * (20-i));
 		}
+		WhenDone();
+	}
+
+	void WhenDone() {
 		for(int i = 0; i < AwakeWhenDone.Length; i++) {
 			AwakeWhenDone[i].SetActive(true);
 		}

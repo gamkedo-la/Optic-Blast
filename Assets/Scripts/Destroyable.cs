@@ -32,11 +32,13 @@ public class Destroyable : MonoBehaviour {
 		if(killCounts) { // false for self destruct attack
 			if(shouldDestroy) {
 				TapToTeleport.enemiesDefeated++;
-				mustDestroyCount--;
-				Debug.Log(mustDestroyCount);
-				if(mustDestroyCount <= 0) { // cycle levels
-					//Application.LoadLevel( (Application.loadedLevel+1) % Application.levelCount );
-					Application.LoadLevel("MenuScene");
+				if(mustDestroy) {
+					mustDestroyCount--;
+					Debug.Log(mustDestroyCount);
+					if(mustDestroyCount <= 0) { // cycle levels
+						//Application.LoadLevel( (Application.loadedLevel+1) % Application.levelCount );
+						Application.LoadLevel("MenuScene");
+					}
 				}
 			} else {
 				TapToTeleport.suppliesLost++;

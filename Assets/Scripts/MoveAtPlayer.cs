@@ -2,8 +2,8 @@
 using System.Collections;
 
 public class MoveAtPlayer : MonoBehaviour {
-	static Transform playerRef;
-	private float moveSpeed = 6.0f;
+	public static Transform playerRef;
+	private float moveSpeed = 3.0f;
 
 	// Use this for initialization
 	void Start () {
