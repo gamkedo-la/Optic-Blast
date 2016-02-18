@@ -62,7 +62,7 @@ public class TapToTeleport : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if( Input.GetMouseButtonDown(1) ) {
+		if( Input.GetButtonDown("Fire2") ) {
 			teleportStart();
 		}
 		if(jumpProcess > 0.0f) {
@@ -87,9 +87,11 @@ public class TapToTeleport : MonoBehaviour {
 			}
 		}
 
-		printDebug.text = "Enemies defeated: " + enemiesDefeated + "\n" +
-			"Supplies lost: " + suppliesLost + "\n" +
-			"You died: " + playerHarm + " times\n" +
-			"Hold: fire - Swipe forward: teleport";
+		if(printDebug) {
+			printDebug.text = "Enemies defeated: " + enemiesDefeated + "\n" +
+				"Supplies lost: " + suppliesLost + "\n" +
+				"You died: " + playerHarm + " times\n" +
+				"Hold: fire - Swipe forward: teleport";
+		}
 	}
 }

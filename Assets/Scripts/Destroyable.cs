@@ -2,6 +2,8 @@
 using System.Collections;
 
 public class Destroyable : MonoBehaviour {
+	public string loadScene;
+
 	public float hp = 0.3f;
 	public GameObject explosionEffectPrefab;
 
@@ -33,13 +35,19 @@ public class Destroyable : MonoBehaviour {
 				mustDestroyCount--;
 				Debug.Log(mustDestroyCount);
 				if(mustDestroyCount <= 0) { // cycle levels
-					Application.LoadLevel( (Application.loadedLevel+1) % Application.levelCount );
+					//Application.LoadLevel( (Application.loadedLevel+1) % Application.levelCount );
+					Application.LoadLevel("MenuScene");
 				}
 			} else {
 				TapToTeleport.suppliesLost++;
 			}
 		}
-		GameObject.Instantiate(explosionEffectPrefab, transform.position, Quaternion.identity);
+		if(loadScene.Length > 0) {
+			Application.LoadLevel(loadScene);
+		}
+		if(explosionEffectPrefab) {
+			GameObject.Instantiate(explosionEffectPrefab, transform.position, Quaternion.identity);
+		}
 		Destroy(gameObject);
 	}
 }
