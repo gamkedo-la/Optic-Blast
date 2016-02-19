@@ -6,11 +6,26 @@ public class TypeText : MonoBehaviour {
 	public GameObject[] AwakeWhenDone;
 	Text myText;
 	string fullText;
-	public static bool doneAlready = false;
+	public int whichLev;
+	public static bool[] wonAlready = new bool[3]; // tracks which stages have been won
+	public static bool[] doneAlready = new bool[3]; // prevents text from showing up on retries
+	public static bool initTextYet = false;
+	public static TypeText instance;
 
 	// Use this for initialization
 	void Start () {
-		if(doneAlready == false) {
+		instance = this; // lazily reassigning singleton between stages
+		// only doing it here to check whichLev when saving which level got won
+
+		if(initTextYet == false) {
+			initTextYet = true;
+			for(int i = 0; i < 3; i++) {
+				doneAlready[i] = false;
+				wonAlready[i] = false;
+			}
+		}
+
+		if(doneAlready[whichLev] == false) {
 			for(int i = 0; i < AwakeWhenDone.Length; i++) {
 				AwakeWhenDone[i].SetActive(false);
 			}
@@ -19,7 +34,7 @@ public class TypeText : MonoBehaviour {
 			fullText = myText.text;
 			myText.text = " ■";
 			StartCoroutine(TypeOutText());
-			doneAlready = true;
+			doneAlready[whichLev] = true;
 		} else {
 			WhenDone();
 		}

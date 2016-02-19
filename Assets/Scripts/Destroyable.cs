@@ -28,6 +28,12 @@ public class Destroyable : MonoBehaviour {
 			Explode();
 		}
 	}
+	void Update() {
+		if(mustDestroy && Input.GetKeyDown(KeyCode.K)) {
+			Explode();
+		}
+	}
+
 	public void Explode(bool killCounts = true) {
 		if(killCounts) { // false for self destruct attack
 			if(shouldDestroy) {
@@ -36,6 +42,10 @@ public class Destroyable : MonoBehaviour {
 					mustDestroyCount--;
 					Debug.Log(mustDestroyCount);
 					if(mustDestroyCount <= 0) { // cycle levels
+						if(TypeText.wonAlready[TypeText.instance.whichLev] == false) {
+							TypeText.wonAlready[TypeText.instance.whichLev] = true;
+						}
+
 						//Application.LoadLevel( (Application.loadedLevel+1) % Application.levelCount );
 						Application.LoadLevel("MenuScene");
 					}
@@ -45,6 +55,7 @@ public class Destroyable : MonoBehaviour {
 			}
 		}
 		if(loadScene.Length > 0) {
+			mustDestroyCount = 0;
 			Application.LoadLevel(loadScene);
 		}
 		if(explosionEffectPrefab) {
