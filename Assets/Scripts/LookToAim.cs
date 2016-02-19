@@ -13,6 +13,7 @@ public class LookToAim : MonoBehaviour {
 	void Update () {
 		RaycastHit rhInfo;
 		if(Physics.Raycast(transform.position, transform.forward, out rhInfo, 10000.0f, lMask)) {
+	//		Debug.Log("View hitting: " + rhInfo.collider.name);
 			focusAt.transform.position = rhInfo.point - transform.forward * 1.6f + Vector3.up*1.6f;
 		}
 	}

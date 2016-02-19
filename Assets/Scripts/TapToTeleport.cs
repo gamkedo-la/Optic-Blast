@@ -61,6 +61,9 @@ public class TapToTeleport : MonoBehaviour {
 			jumpProcess = 0.01f;
 			gotoPos = focusAt.transform.position;
 			gotoPos.y = transform.position.y;
+			if(Vector3.Distance(gotoPos, transform.position) < 10.0f) {
+				transform.position = transform.position + (gotoPos - transform.position).normalized * 10.0f;
+			}
 		}
 	}
 

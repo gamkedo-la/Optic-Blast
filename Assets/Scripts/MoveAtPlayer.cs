@@ -7,13 +7,17 @@ public class MoveAtPlayer : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		if(playerRef == null) {
-			playerRef = GameObject.FindWithTag("Player").transform;
-		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if(playerRef == null) {
+			playerRef = GameObject.FindWithTag("Player").transform;
+		}
+		if(playerRef == null) {
+			return;
+		}
+
 		Vector3 vectDiff = playerRef.position - transform.position;
 		float distTo = vectDiff.magnitude;
 
